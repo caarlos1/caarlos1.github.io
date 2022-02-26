@@ -74,22 +74,22 @@
 
             {%- if page.permalink == "/" -%}
                     {%- if site.preferences.homepage.enabled -%}
-                            <!--- Show Homepage -->
-                            {%- include Homepage.html -%}
-                            <script src="/assets/js/modeswitcher.js"></script>
+                        <!--- Show Homepage -->
+                        {%- include Homepage.html -%}
+                        <script src="/assets/js/modeswitcher.js"></script>
                     {%- else -%}
-                            <!--- Show Feed Part -->
-                    <div class="column is-half">
-                            {%- include FeedContent.html -%}
-                            {%- include Feed.html -%}
-                            {%- include Footer.html -%}             
-                </div>
+                        <!--- Show Feed Part -->
+                        <div class="column is-half">
+                                {%- include FeedContent.html -%}
+                                {%- include Feed.html -%}
+                                {%- include Footer.html -%}
+                        </div>
                     {%- endif -%}
             {%- endif -%}
 
             <!---CASE 2 : Notes & Blog Page-->
 
-            {%- if page.content-type == "notes" 
+            {%- if page.content-type == "notes"
             or page.content-type == "post"  -%}
                 <div class="column is-three-fifths">
                     <main>
@@ -98,7 +98,11 @@
                                 {%- if site.preferences.homepage.enabled -%}
                                 <a class="button is-text button__page-back" onclick="window.history.back();">
                                 {%- else -%}
-                                <a class="button is-text button__page-back" onclick="window.location.assign('/');">
+                                    {%- if page.content-type == "post" -%}
+                                        <a class="button is-text button__page-back" onclick="window.location.assign('/posts');">
+                                    {%- else -%}
+                                        <a class="button is-text button__page-back" onclick="window.location.assign('/');">
+                                    {%- endif -%}
                                 {%- endif -%}
                                     <span class="icon is-small">
                                         <svg width="12" height="20" viewBox="0 0 12 20" fill="none"
@@ -133,7 +137,7 @@
                 </div>
             {%- endif -%}
 
-            <!--- CASE 4 :  Blog Listing page -->   
+            <!--- CASE 4 :  Blog Listing page -->
 
             {%- if page.permalink == "/posts" -%}
                 <div class="column is-half">
@@ -154,21 +158,29 @@
                             </div>
                         {%- endfor -%}
                     </div>
-                    {%- include Footer.html -%} 
+                    {%- include Footer.html -%}
                 </div>
             {%- endif -%}
 
-            <!--- CASE 5 :  Notes Listing page -->   
+            <!--- CASE 5 :  Notes Listing page -->
 
             {%- if page.permalink == "/notes" -%}
                 <div class="column is-half">
                     {%- include FeedContent.html -%}
                     {%- include Feed.html -%}
-                    {%- include Footer.html -%}             
+                    {%- include Footer.html -%}
                 </div>
             {%- endif -%}
-
         </div>
-    </section>     
+
+        <div class="columns is-centered">
+            {% if page.comments %}
+                <div class="column is-three-fifths">
+                    {%- include Comments.html -%}
+                </div>
+            {% endif %}
+        </div>
+
+    </section>
 </body>
 </html>

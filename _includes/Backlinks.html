@@ -32,27 +32,31 @@
 <!-- Add backlinks to the current page --> 
 {%- assign link_count = 0 -%}
 {%- assign wiki_link_title = '[' | append: page.title | append: ']' -%}
+
 {%- for note in site.notes -%}
         {%- if note.url != page.url -%}
             {%- if note.content contains wiki_link_title -%}
                 {%- assign link_count = link_count | plus:1 -%}
             {%- endif -%}
-    {%- endif -%}
+        {%- endif -%}
 {%- endfor -%}
+
 {%- for note in site.posts -%}
         {%- if note.url != page.url -%}
             {%- if note.content contains wiki_link_title -%}
                 {%- assign link_count = link_count | plus:1 -%}
             {%- endif -%}
-    {%- endif -%}
+        {%- endif -%}
 {%- endfor -%}
+
 {%- for note in site.pages -%}
         {%- if note.url != page.url -%}
             {%- if note.content contains wiki_link_title -%}
                 {%- assign link_count = link_count | plus:1 -%}
             {%- endif -%}
-    {%- endif -%}
+        {%- endif -%}
 {%- endfor -%}
+
 {%- if link_count > 0 -%}
 {%- assign wiki_link_title = '[' | append: page.title | append: ']' -%}
 {%- assign display_class = 'hide' -%}
@@ -60,7 +64,7 @@
 {%- assign display_class = 'show' -%}
 {%- endif -%}
 <div class="related {{display_class}}" id="jekyll-seamless-backlinks">
-    <h5 class="block-title">Links to this note</h5>
+    <h5 class="block-title">Outras Notas</h5>
     <div class="related-wrapper">
         {%- for note in site.notes -%}
         {%- if note.url != page.url -%}
